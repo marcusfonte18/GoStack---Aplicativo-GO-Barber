@@ -1,6 +1,8 @@
 import { startOfHour } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
+import AppError from '../errors/AppError';
+
 import Appointment from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentsRepositoy';
 
@@ -22,7 +24,7 @@ class CreateAppointmentService {
 
     // encontra para saber se existe um agendamento no mesmo horário
     if (findAppointmentsInSameDate) {
-      throw Error('This appointment is alredy booked');
+      throw new AppError('This appointment is alredy booked');
     }
 
     // somente cria a instância do appointment, mas não salva ele no Banco de dados
